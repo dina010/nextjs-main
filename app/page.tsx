@@ -138,7 +138,7 @@ export default function Home() {
         <Section variants={zoomIn}>
           <div className="flex justify-center">
             <a
-              href="https://wa.me/6281234567890"
+              href="https://wa.me/6282140205994"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 transition"
