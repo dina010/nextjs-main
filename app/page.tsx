@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
-import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import type { ReactNode } from "react";
 
 /* VARIANT ANIMASI */
 const fade: Variants = {
@@ -30,29 +31,30 @@ const zoomIn: Variants = {
   show: { opacity: 1, scale: 1 },
 };
 
-/* WRAPPER SECTION (ANTI ERROR) */
-const Section = ({
-  children,
-  variants,
-}: {
+/* WRAPPER SECTION */
+type SectionProps = {
   children: ReactNode;
   variants: Variants;
-}) => (
-  <motion.div
-    variants={variants}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.3 }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-    className="mb-8"
-  >
-    {children}
-  </motion.div>
-);
+};
+
+const Section = ({ children, variants }: SectionProps) => {
+  return (
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="mb-8"
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-200 px-6 py-16 flex justify-center">
+    <main className="min-h-screen bg-gray-950 text-gray-200 px-6 py-16 flex justify-center">
       <div className="max-w-3xl w-full bg-gray-900/70 rounded-2xl p-8 shadow-lg">
 
         {/* UCAPAN */}
@@ -75,6 +77,7 @@ export default function Home() {
               alt="Foto Saya"
               width={180}
               height={180}
+              priority
               className="object-cover rounded-2xl border border-gray-700 shadow-md"
             />
           </div>
@@ -114,9 +117,9 @@ export default function Home() {
               Pengalaman
             </h2>
             <ul className="text-gray-400 space-y-2">
-              <li>• Website sederhana</li>
-              <li>• Project frontend sekolah</li>
-              <li>• Kerja tim kecil</li>
+              <li>Website sederhana</li>
+              <li>Project frontend sekolah</li>
+              <li>Kerja tim kecil</li>
             </ul>
           </section>
         </Section>
@@ -146,6 +149,6 @@ export default function Home() {
         </Section>
 
       </div>
-    </div>
+    </main>
   );
 }
