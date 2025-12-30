@@ -1,43 +1,151 @@
+"use client";
+
 import Image from "next/image";
+import { motion, Variants } from "framer-motion";
+import { ReactNode } from "react";
+
+/* VARIANT ANIMASI */
+const fade: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
+
+const slideLeft: Variants = {
+  hidden: { opacity: 0, x: -40 },
+  show: { opacity: 1, x: 0 },
+};
+
+const slideRight: Variants = {
+  hidden: { opacity: 0, x: 40 },
+  show: { opacity: 1, x: 0 },
+};
+
+const slideUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0 },
+};
+
+const zoomIn: Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  show: { opacity: 1, scale: 1 },
+};
+
+/* WRAPPER SECTION (ANTI ERROR) */
+const Section = ({
+  children,
+  variants,
+}: {
+  children: ReactNode;
+  variants: Variants;
+}) => (
+  <motion.div
+    variants={variants}
+    initial="hidden"
+    whileInView="show"
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+    className="mb-8"
+  >
+    {children}
+  </motion.div>
+);
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white font-sans px-6 sm:px-10 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-gray-950 text-gray-200 px-6 py-16 flex justify-center">
+      <div className="max-w-3xl w-full bg-gray-900/70 rounded-2xl p-8 shadow-lg">
 
-      <header className="text-center py-16 px-4 max-w-3xl w-full">
+        {/* UCAPAN */}
+        <Section variants={fade}>
+          <div className="text-center">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-white">
+              Halo, selamat datang 👋
+            </h1>
+            <p className="text-gray-400 mt-2">
+              Ini adalah halaman profil sederhana saya
+            </p>
+          </div>
+        </Section>
 
-        {/* FOTO PROFESIONAL */}
-        <div className="mb-6">
-          <Image
-            src="/foto-aku.jpg"   // lokasi di public/
-            alt="Foto Profil Maulidina"
-            width={180}
-            height={180}
-            className="rounded-full object-cover border-4 border-pink-500/70 shadow-[0_0_27px_-5px_rgba(236,72,153,0.45)] hover:scale-105 transition-all duration-300"
-          />
-        </div>
+        {/* FOTO */}
+        <Section variants={zoomIn}>
+          <div className="flex justify-center">
+            <Image
+              src="/foto-aku.jpg"
+              alt="Foto Saya"
+              width={180}
+              height={180}
+              className="object-cover rounded-2xl border border-gray-700 shadow-md"
+            />
+          </div>
+        </Section>
 
-        {/* NAMA */}
-        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-pink-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">
-          Maulidina
-        </h1>mng                                                                                           
+        {/* TENTANG */}
+        <Section variants={slideLeft}>
+          <section>
+            <h2 className="text-lg font-semibold text-gray-100 mb-2">
+              Tentang Saya
+            </h2>
+            <p className="text-gray-400">
+              Pelajar yang tertarik pada dunia teknologi dan pengembangan web.
+              Fokus belajar konsisten dan bertahap.
+            </p>
+          </section>
+        </Section>
 
-        {/* DESKRIPSI */}
-        <p className="text-xl sm:text-2xl text-gray-300 mt-3 font-light">
-          Siswa Pengembang Web & Desainer Kreatif
-        </p>
+        {/* HOBI */}
+        <Section variants={slideRight}>
+          <section>
+            <h2 className="text-lg font-semibold text-gray-100 mb-2">
+              Hobi
+            </h2>
+            <ul className="list-disc list-inside text-gray-400 space-y-1">
+              <li>Naik sepeda motor</li>
+              <li>Ngoding & eksplor</li>
+              <li>Dengerin musik</li>
+            </ul>
+          </section>
+        </Section>
 
-        <div className="border-b border-pink-500/40 w-28 mx-auto my-6"></div>
+        {/* PENGALAMAN */}
+        <Section variants={slideUp}>
+          <section>
+            <h2 className="text-lg font-semibold text-gray-100 mb-2">
+              Pengalaman
+            </h2>
+            <ul className="text-gray-400 space-y-2">
+              <li>• Website sederhana</li>
+              <li>• Project frontend sekolah</li>
+              <li>• Kerja tim kecil</li>
+            </ul>
+          </section>
+        </Section>
 
-        {/* BIO */}
-        <p className="text-lg text-gray-400 leading-relaxed">
-          Saya antusias mempelajari dunia pengembangan web dan desain kreatif.
-          Fokus saya saat ini adalah membangun antarmuka yang modern, bersih, dan
-          mudah digunakan. Senang dapat terus belajar dan berkembang.
-        </p>
+        {/* LOKASI */}
+        <Section variants={fade}>
+          <section>
+            <h2 className="text-lg font-semibold text-gray-100 mb-2">
+              Lokasi
+            </h2>
+            <p className="text-gray-400">📍 Bandung, Jawa Barat</p>
+          </section>
+        </Section>
 
-      </header>
+        {/* WHATSAPP */}
+        <Section variants={zoomIn}>
+          <div className="flex justify-center">
+            <a
+              href="https://wa.me/6281234567890"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 transition"
+            >
+              Hubungi via WhatsApp
+            </a>
+          </div>
+        </Section>
 
+      </div>
     </div>
   );
 }
